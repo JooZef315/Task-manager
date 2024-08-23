@@ -23,10 +23,15 @@ export default function TasksOps() {
     >
       <select
         className="block w-full rounded-md border-0 py-2.5 pl-7 pr-20 text-blue-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 sm:text-sm sm:leading-6"
+        defaultValue={"Filter by task status"}
         value={status}
         onChange={(e) => setStatus(e.target.value as TaskStatus)}
       >
-        <option value="" disabled selected className="text-gray-400">
+        <option
+          value="Filter by task status"
+          disabled
+          className="text-gray-400"
+        >
           Filter by task status
         </option>
         <option value="Not_Started">Not Started</option>
@@ -35,10 +40,15 @@ export default function TasksOps() {
       </select>
       <select
         className="block w-full rounded-md border-0 py-2.5 pl-7 pr-20 text-blue-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 sm:text-sm sm:leading-6"
+        defaultValue={"Sort by task description"}
         value={order}
         onChange={(e) => setOrder(e.target.value as Order)}
       >
-        <option value="" disabled selected className="text-gray-400">
+        <option
+          value="Sort by task description"
+          disabled
+          className="text-gray-400"
+        >
           Sort by task description
         </option>
         <option value="Ascending">Ascending</option>
@@ -46,7 +56,7 @@ export default function TasksOps() {
       </select>
       <button
         type="submit"
-        className="flex-1 w-full rounded-md border-0 py-2 px-6 text-center bg-blue-900 hover:bg-blue-700 text-white"
+        className="flex-1 w-full rounded-md border-0 py-2 px-6 text-center bg-blue-900 hover:bg-blue-950 text-white"
       >
         APPLY!
       </button>

@@ -4,7 +4,7 @@ export enum TaskStatus {
   Finished = "Finished",
 }
 
-export type Task = {
+export type TTask = {
   id: string;
   description: string;
   status: TaskStatus;
@@ -12,4 +12,4 @@ export type Task = {
 
 export type TaskToEdit = {
   id: string;
-} & Partial<Omit<Task, "id">>;
+} & Partial<Omit<TTask, "id">>;

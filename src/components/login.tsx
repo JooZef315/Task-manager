@@ -74,7 +74,7 @@ export default function Login({ setIsLoggedIn }: PropsType) {
           <div className="w-full">
             <button
               type="submit"
-              className="w-full py-3 px-5 bg-blue-900 hover:bg-blue-700 text-white"
+              className="w-full py-3 px-5 bg-blue-900 hover:bg-blue-950 text-white"
             >
               LOGIN
             </button>

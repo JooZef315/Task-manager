@@ -1,10 +1,10 @@
 import { create } from "zustand";
-import { Task, TaskStatus } from "../types";
+import { TTask, TaskStatus } from "../types";
 
 type TasksStore = {
-  tasks: Task[];
-  addTask(task: Task): void;
-  editTask(updatedtask: Task): void;
+  tasks: TTask[];
+  addTask(task: TTask): void;
+  editTask(updatedtask: TTask): void;
   deleteTask(id: string): void;
   clearTasks(): void;
   filterByStatus: (status: TaskStatus) => void;

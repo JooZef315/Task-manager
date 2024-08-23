@@ -3,7 +3,7 @@ import { FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useTasksStore } from "../store/useTasksStore";
-import { Task, TaskStatus } from "../types";
+import { TTask, TaskStatus } from "../types";
 
 export default function AddTask() {
   const [taskDesc, setTaskDesc] = useState("");
@@ -16,7 +16,7 @@ export default function AddTask() {
       return;
     }
 
-    const newTask: Task = {
+    const newTask: TTask = {
       id: uuidv4(),
       description: taskDesc.trim(),
       status: TaskStatus.Not_Started,
@@ -41,7 +41,7 @@ export default function AddTask() {
       />
       <button
         type="submit"
-        className="flex-1 w-full rounded-md border-0 py-2 px-6 text-center bg-blue-900 hover:bg-blue-700 text-white"
+        className="flex-1 w-full rounded-md border-0 py-2 px-6 text-center bg-blue-900 hover:bg-blue-950 text-white"
       >
         ADD!
       </button>
