@@ -11,21 +11,22 @@ type TasksStore = {
   sortByDescription: (order: "asc" | "desc") => void;
 };
 
-export const useTasksStore = create<TasksStore>((set) => ({
+export const useTasksStore = create<TasksStore>((set, get) => ({
   tasks: JSON.parse(localStorage.getItem("tasks") || "[]"),
   addTask(task) {
-    localStorage.setItem("tasks", JSON.stringify([...this.tasks, task]));
-    set((state) => ({ tasks: [...state.tasks, task] }));
+    const newTasks = [...get().tasks, task];
+    localStorage.setItem("tasks", JSON.stringify(newTasks));
+    set({ tasks: newTasks });
   },
   editTask(updatedtask) {
-    const updatedTasks = this.tasks.map((task) =>
+    const updatedTasks = get().tasks.map((task) =>
       task.id === updatedtask.id ? updatedtask : task
     );
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     set({ tasks: [...updatedTasks] });
   },
   deleteTask(id) {
-    const tasksAfterDeletion = this.tasks.filter((task) => task.id !== id);
+    const tasksAfterDeletion = get().tasks.filter((task) => task.id !== id);
     localStorage.setItem("tasks", JSON.stringify(tasksAfterDeletion));
     set({ tasks: [...tasksAfterDeletion] });
   },

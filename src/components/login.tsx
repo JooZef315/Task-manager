@@ -34,7 +34,7 @@ export default function Login({ setIsLoggedIn }: PropsType) {
   };
 
   return (
-    <main className="h-4/5 flex justify-center items-center">
+    <main className="h-4/5 my-auto flex justify-center items-center">
       {loading ? (
         <p className="text-center text-zinc-500 p-3">
           Loading, Please Wait ...
