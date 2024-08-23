@@ -1,14 +1,14 @@
 import { create } from "zustand";
-import { TTask, TaskStatus } from "../types";
+import { Order, TTask, TaskStatus } from "../types";
 
 type TasksStore = {
   tasks: TTask[];
   addTask(task: TTask): void;
   editTask(updatedtask: TTask): void;
   deleteTask(id: string): void;
-  clearTasks(): void;
   filterByStatus: (status: TaskStatus) => void;
-  sortByDescription: (order: "asc" | "desc") => void;
+  sortByDescription: (order: Order) => void;
+  resetFilters(): void;
 };
 
 export const useTasksStore = create<TasksStore>((set, get) => ({
@@ -30,10 +30,7 @@ export const useTasksStore = create<TasksStore>((set, get) => ({
     localStorage.setItem("tasks", JSON.stringify(tasksAfterDeletion));
     set({ tasks: [...tasksAfterDeletion] });
   },
-  clearTasks() {
-    localStorage.setItem("tasks", JSON.stringify([]));
-    set({ tasks: [] });
-  },
+
   filterByStatus(status) {
     set((state) => ({
       tasks: state.tasks.filter((task) => task.status === status),
@@ -42,10 +39,13 @@ export const useTasksStore = create<TasksStore>((set, get) => ({
   sortByDescription(order) {
     set((state) => ({
       tasks: [...state.tasks].sort((a, b) =>
-        order === "asc"
+        order === "Ascending"
           ? a.description.localeCompare(b.description)
           : b.description.localeCompare(a.description)
       ),
     }));
+  },
+  resetFilters() {
+    set({ tasks: JSON.parse(localStorage.getItem("tasks") || "[]") });
   },
 }));

@@ -13,3 +13,8 @@ export type TTask = {
 export type TaskToEdit = {
   id: string;
 } & Partial<Omit<TTask, "id">>;
+
+export enum Order {
+  Ascending = "Ascending",
+  Descending = "Descending",
+}
