@@ -5,6 +5,11 @@ export enum TaskStatus {
 }
 
 export type Task = {
+  id: string;
   description: string;
   status: TaskStatus;
 };
+
+export type TaskToEdit = {
+  id: string;
+} & Partial<Omit<Task, "id">>;
