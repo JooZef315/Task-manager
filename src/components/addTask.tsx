@@ -6,7 +6,7 @@ import { useTasksStore } from "../store/useTasksStore";
 import { TTask, TaskStatus } from "../types";
 
 export default function AddTask() {
-  const [taskDesc, setTaskDesc] = useState("");
+  const [taskDesc, setTaskDesc] = useState<string>("");
   const addTask = useTasksStore((state) => state.addTask);
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -23,6 +23,7 @@ export default function AddTask() {
     };
 
     addTask(newTask);
+    setTaskDesc("");
     toast.success("Task was added Successfully!");
   };
   return (
