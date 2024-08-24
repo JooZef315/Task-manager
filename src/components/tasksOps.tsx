@@ -18,7 +18,6 @@ export default function TasksOps() {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     resetFilters();
-    console.log(filterStatus, order);
     if (filterStatus !== "Filter by task status") {
       filterByStatus(filterStatus);
     }
