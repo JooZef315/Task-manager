@@ -52,6 +52,13 @@ Environment variables defined in .env files are accessible via **import.meta.env
 
 Tasks are stored in the browser's localStorage. No backend is required to persist data.
 
+## Caching
+
+The application implements caching mechanisms to enhance performance:
+
+- **`currentTasks` Caching**: The `currentTasks` array, which results from pagination, is cached using React's `useMemo` hook. This ensures that the tasks are only recalculated when the relevant state, such as the current page or task list, changes.
+- **Local Storage as Cache**: Tasks are stored in the browser's `localStorage`, which acts as a cache for task data. This allows tasks to persist across sessions, reducing redundant data fetching.
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
