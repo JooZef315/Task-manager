@@ -37,18 +37,6 @@ To run this project locally, follow these steps:
    ```
    The application will be available at http://localhost:5173
 
-## Configuration
-
-Environment Variables
-To configure environment variables, create a .env file in the root directory:
-
-```bash
-  VITE_USERNAME=
-  VITE_PASSWORD=
-```
-
-Environment variables defined in .env files are accessible via **import.meta.env** in Vite projects.
-
 ## Local Storage
 
 Tasks are stored in the browser's localStorage. No backend is required to persist data.
