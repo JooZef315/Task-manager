@@ -1,11 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useTasksStore } from "../store/useTasksStore";
 import PaginationForm from "./paginationForm";
 import Task from "./task";
 
 export default function TasksList() {
-  const currentTasks = useTasksStore((state) => state.paginateTasks());
+  const currentTasks = useMemo(() => {
+    return useTasksStore.getState().paginateTasks();
+  }, [
+    useTasksStore((state) => state.tasks),
+    useTasksStore((state) => state.currentPage),
+  ]);
+  // const currentTasks = useTasksStore((state) => state.paginateTasks());
   const currentPage = useTasksStore((state) => state.currentPage);
   const getPrevPage = useTasksStore((state) => state.getPrevPage);
 
