@@ -21,10 +21,7 @@ export default function Login({ setIsLoggedIn }: PropsType) {
       return;
     }
 
-    if (
-      username != import.meta.env.VITE_USERNAME ||
-      password != import.meta.env.VITE_PASSWORD
-    ) {
+    if (username != "admin" || password != "admin") {
       setError("Username or Password are not correct!");
       setLoading(false);
       return;

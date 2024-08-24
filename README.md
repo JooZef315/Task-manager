@@ -4,6 +4,7 @@ This is a task management application built with React, Zustand, Tailwind CSS, a
 
 ## Features
 
+- **Dummy Login**: Users can log in with predefined credentials to explore the app's functionality.
 - **CRUD Operations**: Create, read, update, and delete tasks.
 - **Task Filtering**: Filter tasks by status (e.g., Not Started, In Progress, Completed).
 - **Sorting**: Sort tasks alphabetically by description (ascending/descending).
