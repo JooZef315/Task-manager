@@ -1,9 +1,19 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from "react";
 import { useTasksStore } from "../store/useTasksStore";
 import PaginationForm from "./paginationForm";
 import Task from "./task";
 
 export default function TasksList() {
   const currentTasks = useTasksStore((state) => state.paginateTasks());
+  const currentPage = useTasksStore((state) => state.currentPage);
+  const getPrevPage = useTasksStore((state) => state.getPrevPage);
+
+  useEffect(() => {
+    if (!currentTasks.length && currentPage !== 1) {
+      getPrevPage();
+    }
+  }, [currentTasks]);
 
   return (
     <div className="w-full flex flex-wrap justify-center items-center">

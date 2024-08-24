@@ -42,7 +42,8 @@ export default function AddTask() {
       />
       <button
         type="submit"
-        className="flex-1 w-full rounded-md border-0 py-2 px-6 text-center bg-blue-900 hover:bg-blue-950 text-white"
+        disabled={taskDesc.length == 0}
+        className="flex-1 w-full rounded-md border-0 py-2 px-6 text-center bg-blue-900 hover:bg-blue-950 text-white disabled:bg-blue-400"
       >
         ADD!
       </button>

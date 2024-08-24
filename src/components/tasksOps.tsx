@@ -11,6 +11,7 @@ export default function TasksOps() {
     "Sort by description"
   );
 
+  const isFiltersApplied = useTasksStore((state) => state.isFiltersApplied);
   const filterByStatus = useTasksStore((state) => state.filterByStatus);
   const sortByDescription = useTasksStore((state) => state.sortByDescription);
   const resetFilters = useTasksStore((state) => state.resetFilters);
@@ -69,16 +70,17 @@ export default function TasksOps() {
       </select>
       <button
         type="submit"
-        className="flex-1 w-full rounded-md border-0 py-2 px-6 text-center bg-blue-900 hover:bg-blue-950 text-white"
+        disabled={
+          order == "Sort by description" &&
+          filterStatus == "Filter by task status"
+        }
+        className="flex-1 w-full rounded-md border-0 py-2 px-6 text-center bg-blue-900 hover:bg-blue-950 text-white disabled:bg-blue-400"
       >
         APPLY!
       </button>
       <button
         type="reset"
-        disabled={
-          order == "Sort by description" &&
-          filterStatus == "Filter by task status"
-        }
+        disabled={!isFiltersApplied}
         className="flex-1 w-full rounded-md border-0 py-2 px-6 text-center bg-zinc-500 hover:bg-zinc-600 text-white disabled:bg-zinc-300"
       >
         RESET!

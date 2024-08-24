@@ -12,7 +12,7 @@ function App() {
     <>
       <Navbar />
       <main className="min-h-[calc(100vh-116px)] flex flex-col items-center gap-4 p-4 w-full md:w-3/4 md:mx-auto">
-        {isLoggedIn ? (
+        {!isLoggedIn ? (
           <Login setIsLoggedIn={setIsLoggedIn} />
         ) : (
           <>

@@ -5,7 +5,8 @@ type TasksStore = {
   tasks: TTask[];
   currentPage: number;
   tasksPerPage: number;
-  addTask(task: TTask): void;
+  isFiltersApplied: boolean;
+  addTask(newTask: TTask): void;
   editTask(updatedtask: TTask): void;
   deleteTask(id: string): void;
   filterByStatus: (status: TaskStatus) => void;
@@ -20,30 +21,63 @@ export const useTasksStore = create<TasksStore>((set, get) => ({
   tasks: JSON.parse(localStorage.getItem("tasks") || "[]"),
   currentPage: 1,
   tasksPerPage: 4,
-  addTask(task) {
-    const newTasks = [...get().tasks, task];
+  isFiltersApplied: false,
+  addTask(newTask) {
+    //add to local torage
+    const localStorageNewTasks = JSON.parse(
+      localStorage.getItem("tasks") || "[]"
+    ) as TTask[];
+    const newTasks = [...localStorageNewTasks, newTask];
     localStorage.setItem("tasks", JSON.stringify(newTasks));
-    set({ tasks: newTasks });
+    //add to state if allowed by filters
+    const checkFilters = get().tasks.some(
+      (task) => task.status == newTask.status
+    );
+    if (checkFilters) {
+      set((state) => ({ tasks: [...state.tasks, newTask] }));
+    }
   },
   editTask(updatedtask) {
-    const updatedTasks = get().tasks.map((task) =>
-      task.id === updatedtask.id ? updatedtask : task
+    //edit to local torage
+    const updatedTasks = JSON.parse(localStorage.getItem("tasks") || "[]").map(
+      (task: TTask) => (task.id === updatedtask.id ? updatedtask : task)
     );
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
-    set({ tasks: [...updatedTasks] });
+    //add to state if allowed by filters
+    const checkFilters = get().tasks.some(
+      (task) => task.status == updatedtask.status
+    );
+    if (!get().isFiltersApplied || checkFilters) {
+      set((state) => ({
+        tasks: state.tasks.map((task: TTask) =>
+          task.id === updatedtask.id ? updatedtask : task
+        ),
+      }));
+    } else {
+      set((state) => ({
+        tasks: state.tasks.filter((task) => task.id != updatedtask.id),
+      }));
+    }
   },
   deleteTask(id) {
+    //delete from local storage
+    const localStorageAfterDeletion = JSON.parse(
+      localStorage.getItem("tasks") || "[]"
+    ).filter((task: TTask) => task.id !== id);
+    localStorage.setItem("tasks", JSON.stringify(localStorageAfterDeletion));
+    //delete from state
     const tasksAfterDeletion = get().tasks.filter((task) => task.id !== id);
-    localStorage.setItem("tasks", JSON.stringify(tasksAfterDeletion));
     set({ tasks: [...tasksAfterDeletion] });
   },
   filterByStatus(status) {
     set((state) => ({
+      isFiltersApplied: true,
       tasks: state.tasks.filter((task) => task.status === status),
     }));
   },
   sortByDescription(order) {
     set((state) => ({
+      isFiltersApplied: true,
       tasks: [...state.tasks].sort((a, b) =>
         order === "Ascending"
           ? a.description.localeCompare(b.description)
@@ -53,6 +87,7 @@ export const useTasksStore = create<TasksStore>((set, get) => ({
   },
   resetFilters() {
     set({
+      isFiltersApplied: false,
       currentPage: 1,
       tasks: JSON.parse(localStorage.getItem("tasks") || "[]"),
     });
