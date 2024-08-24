@@ -37,16 +37,13 @@ export const useTasksStore = create<TasksStore>((set, get) => ({
     localStorage.setItem("tasks", JSON.stringify(tasksAfterDeletion));
     set({ tasks: [...tasksAfterDeletion] });
   },
-
   filterByStatus(status) {
     set((state) => ({
-      currentPage: 1,
       tasks: state.tasks.filter((task) => task.status === status),
     }));
   },
   sortByDescription(order) {
     set((state) => ({
-      currentPage: 1,
       tasks: [...state.tasks].sort((a, b) =>
         order === "Ascending"
           ? a.description.localeCompare(b.description)
@@ -55,7 +52,10 @@ export const useTasksStore = create<TasksStore>((set, get) => ({
     }));
   },
   resetFilters() {
-    set({ tasks: JSON.parse(localStorage.getItem("tasks") || "[]") });
+    set({
+      currentPage: 1,
+      tasks: JSON.parse(localStorage.getItem("tasks") || "[]"),
+    });
   },
   paginateTasks() {
     const { tasks, currentPage, tasksPerPage } = get();
