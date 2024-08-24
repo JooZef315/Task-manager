@@ -1,50 +1,57 @@
-# React + TypeScript + Vite
+# Tasks Manager
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a task management application built with React, Zustand, Tailwind CSS, and Vite. The application allows users to create, update, and manage tasks with features like filtering, sorting, and pagination. The tasks are stored in the browser's `localStorage`, ensuring persistence across sessions.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **CRUD Operations**: Create, read, update, and delete tasks.
+- **Task Filtering**: Filter tasks by status (e.g., Not Started, In Progress, Completed).
+- **Sorting**: Sort tasks alphabetically by description (ascending/descending).
+- **Pagination**: View tasks with pagination controls to navigate between pages.
+- **Responsive Design**: Fully responsive UI using Tailwind CSS.
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **React**: Frontend library for building user interfaces.
+- **Zustand**: Lightweight state management for React applications.
+- **Tailwind CSS**: Utility-first CSS framework for styling.
+- **Vite**: Fast frontend build tool for development.
 
-- Configure the top-level `parserOptions` property like this:
+## Installation
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+To run this project locally, follow these steps:
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/JooZef315/digitalhub-task.git
+   cd digitalhub-task
+   ```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+3. **Start the development server:**
+   ```bash
+   npm run dev
+   ```
+   The application will be available at http://localhost:5173
+
+## Configuration
+
+Environment Variables
+To configure environment variables, create a .env file in the root directory:
+
+```bash
+  VITE_USERNAME=
+  VITE_PASSWORD=
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+Environment variables defined in .env files are accessible via **import.meta.env** in Vite projects.
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## Local Storage
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Tasks are stored in the browser's localStorage. No backend is required to persist data.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
