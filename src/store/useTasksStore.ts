@@ -33,7 +33,7 @@ export const useTasksStore = create<TasksStore>((set, get) => ({
     const checkFilters = get().tasks.some(
       (task) => task.status == newTask.status
     );
-    if (checkFilters) {
+    if (!get().isFiltersApplied || checkFilters) {
       set((state) => ({ tasks: [...state.tasks, newTask] }));
     }
   },
