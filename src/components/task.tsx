@@ -11,8 +11,8 @@ type PropsType = {
 
 export default function Task({ task }: PropsType) {
   const [editing, setEditing] = useState<boolean>(false);
-  const [newSatus, setNewStatus] = useState<TaskStatus>();
-  const [newTaskDesc, setNewTaskDesc] = useState<string>();
+  const [newSatus, setNewStatus] = useState<TaskStatus>(task.status);
+  const [newTaskDesc, setNewTaskDesc] = useState<string>(task.description);
 
   const deleteTask = useTasksStore((state) => state.deleteTask);
   const editTask = useTasksStore((state) => state.editTask);
@@ -35,25 +35,24 @@ export default function Task({ task }: PropsType) {
   return (
     <div className="fade-in content-center sm:basis-1/2 p-4">
       <div
-        className={`min-h-48 flex flex-col items-start justify-evenly px-4 py-1 bg-slate-100 shadow-md  border-t-4 border-${
-          task.status == TaskStatus.Not_Started
-            ? "red"
-            : task.status == TaskStatus.In_Progress
-            ? "blue"
-            : "green"
-        }-500 transition-transform duration-300 hover:scale-110`}
+        className={`min-h-48 flex flex-col items-start justify-evenly px-4 py-1 bg-slate-100 shadow-md  border-t-4 ${
+          {
+            [TaskStatus.Not_Started]: "border-red-500",
+            [TaskStatus.In_Progress]: "border-blue-500",
+            [TaskStatus.Finished]: "border-green-500",
+          }[task.status]
+        } transition-transform duration-300 hover:scale-110`}
       >
         {!editing ? (
           <>
-            {" "}
             <span
-              className={`bg-${
-                task.status == TaskStatus.Not_Started
-                  ? "red"
-                  : task.status == TaskStatus.In_Progress
-                  ? "blue"
-                  : "green"
-              }-500 text-white rounded-2xl py-1 px-3`}
+              className={`${
+                {
+                  [TaskStatus.Not_Started]: "bg-red-500",
+                  [TaskStatus.In_Progress]: "bg-blue-500",
+                  [TaskStatus.Finished]: "bg-green-500",
+                }[task.status]
+              } text-white rounded-2xl py-1 px-3`}
             >
               {task.status}
             </span>
@@ -81,7 +80,7 @@ export default function Task({ task }: PropsType) {
           <>
             <select
               className="block w-full rounded-md border-0 py-2.5 pl-7 pr-20 text-blue-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 sm:text-sm sm:leading-6"
-              defaultValue={task.status}
+              defaultValue={newSatus}
               onChange={(e) => setNewStatus(e.target.value as TaskStatus)}
             >
               <option value="Not_Started">Not Started</option>
@@ -93,7 +92,7 @@ export default function Task({ task }: PropsType) {
               name="desc"
               id="desc"
               className="flex-5 block w-full rounded-md border-0 py-2.5 pl-7 pr-20 text-blue-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-900 sm:text-sm sm:leading-6"
-              value={task.description}
+              value={newTaskDesc}
               onChange={(e) => setNewTaskDesc(e.target.value)}
             />
             <button
